@@ -1,0 +1,72 @@
+#!/bin/sh
+
+col=`tput cols`
+noOfLine=`expr $col / 2 - 2`
+if [ $# == 0 ]
+then
+	echo "Running with default value $noOfLine"
+elif [ $# == 1 ]
+then
+	noOfLineFromInput=`expr $1 + 0 2> /dev/null`
+	if [ $? == 0 ]
+	then
+		if [ $noOfLineFromInput -le $noOfLine ]
+		then
+			noOfLine=$noOfLineFromInput
+			echo "Running with user Input: $noOfLine"
+		else
+			echo "User Input exceed the max value. Running with default value $noOfLine"
+		fi
+	else
+		echo "Invalid type of argument. Running with default value $noOfLine"
+	fi
+else
+	echo "Invalid Number of Arguments, Running with default value $noOfLine"
+fi
+
+i=1
+blank=" "
+line="$blank"
+
+while [ $i -le $noOfLine ]; 
+do
+	line="$blank"
+	j=$i
+	while [ $j -le $noOfLine ]; 
+	do
+		line="$line "
+		j=`expr $j + 1`
+	done
+	k=1
+	while [ $k -le $i ];
+	do
+		line="$line* "
+		k=`expr $k + 1`
+	done
+	echo "$line"
+	i=`expr $i + 1`
+done
+
+i=1
+blank=" "
+line="$blank"
+
+while [ $i -le $noOfLine ]; 
+do
+        line="$blank"
+	j=`expr $noOfLine - $i`
+        while [ $j -le $noOfLine ]; 
+        do
+                line="$line "
+                j=`expr $j + 1`
+        done
+        k=`expr $i + 1`
+        while [ $k -le $noOfLine ];
+        do
+                line="$line* "
+                k=`expr $k + 1`
+        done
+        echo "$line"
+        i=`expr $i + 1`
+done
+
